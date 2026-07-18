@@ -1,4 +1,5 @@
-namespace TmsApi.Domain.Entities;public class Student
+namespace TmsApi.Domain.Entities;
+public class Student
 {
     public int Id { get; set; } // surrogate primary key — internal, used by foreign keys
     public required string RegistrationNumber { get; set; } //natural key — human-readable (uniqueness configured in Session 2)

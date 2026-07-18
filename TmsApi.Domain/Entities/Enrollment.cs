@@ -1,5 +1,6 @@
 using System;
-namespace TmsApi.Domain.Entities;public class Enrollment
+namespace TmsApi.Domain.Entities;
+public class Enrollment
 {
 public int Id { get; set; }
 public int StudentId { get; set; }
