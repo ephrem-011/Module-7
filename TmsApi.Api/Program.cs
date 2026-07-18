@@ -5,13 +5,15 @@ using Microsoft.Extensions.Options;
 using System.ComponentModel.DataAnnotations;
 using Scalar.AspNetCore;
 using Microsoft.EntityFrameworkCore;
-using TmsApi.Data;
-using TmsApi.Entities;
-using TmsApi.Services;
-using TmsApi.Persistence;
-using TmsApi.Filters;
+using TmsApi.Infrastructure.Persistence;
+using TmsApi.Domain.Entities;
+using TmsApi.Infrastructure.Services;
+using TmsApi.Application.Interfeces;
+using TmsApi.Application.Filters;
 using Microsoft.AspNetCore.Identity;
 using Asp.Versioning;
+using TmsApi.Api.Middlewares;
+using TmsApi.Infrastructure.SeedData;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers(options =>
@@ -42,45 +44,19 @@ builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IEnrollmentServices, EnrollmentService>();
 
 
-builder.Services.AddOptions<PaymentOptions>()
-    .BindConfiguration("Payments")
-    .ValidateDataAnnotations()
-    .ValidateOnStart();
-
-builder.Services.AddOpenApi("v1", options =>
-{
-options.ShouldInclude = description =>
-description.GroupName == "v1";
-});
-builder.Services.AddOpenApi("v2", options =>
-{
-options.ShouldInclude = description =>
-description.GroupName == "v2";
-});
-builder.Services.AddApiVersioning(options =>
-{
-options.DefaultApiVersion = new ApiVersion(1, 0);
-options.AssumeDefaultVersionWhenUnspecified = true;
-options.ReportApiVersions = true;
-options.ApiVersionReader = new UrlSegmentApiVersionReader();
-})
-.AddApiExplorer(options =>
-{
-options.GroupNameFormat = "'v'VVV";
-options.SubstituteApiVersionInUrl = true;
-});
-
 var app = builder.Build();
 
-app.MapScalarApiReference(options =>
+if (app.Environment.IsDevelopment())
 {
-options.WithTitle("TMS API Reference")
-.WithTheme(ScalarTheme.DeepSpace)
-.WithDefaultHttpClient(ScalarTarget.CSharp,ScalarClient.HttpClient)
-// Tell Scalar to pull both documents into its sidebar dropdownoptions
-.AddDocument("v1", "API Version 1.0")
-.AddDocument("v2", "API Version 2.0");
-});
+    // Development tools only
+    app.MapOpenApi();
+    app.MapScalarApiReference();
+}
+else
+{
+    // Production safety
+    app.UseExceptionHandler();
+}
 app.UseStatusCodePages();
 
 app.UseMiddleware<RequestLoggingMiddleware>();

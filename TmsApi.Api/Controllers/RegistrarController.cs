@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
-using TmsApi.Data;
+using TmsApi.Infrastructure.Persistence;
+using TmsApi.Infrastructure.Services;
+using TmsApi.Application.Interfeces;
 using Microsoft.EntityFrameworkCore;
-namespace RegistrarController;
+namespace TmsApi.Api.Controllers;
 [ApiController]
 [Route("api/registrar")]
 public class RegistrarController(TmsDbContext context) : ControllerBase

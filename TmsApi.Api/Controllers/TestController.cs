@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
-using TmsApi.Data;
+using TmsApi.Infrastructure.Services;
+using TmsApi.Application.Interfeces;
+using TmsApi.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-namespace TmsApi.Controllers;
+namespace TmsApi.Api.Controllers;
 [ApiController]
 [Route("api/test")]
 public class TestController(TmsDbContext context) : ControllerBase
