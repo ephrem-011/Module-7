@@ -21,6 +21,29 @@ builder.Services.AddControllers(options =>
     options.Filters.Add<AuditLogFilter>();
 });
 
+builder.Services.AddOpenApi("v1", options =>
+{
+options.ShouldInclude = description =>
+description.GroupName == "v1";
+});
+builder.Services.AddOpenApi("v2", options =>
+{
+options.ShouldInclude = description =>
+description.GroupName == "v2";
+});
+builder.Services.AddApiVersioning(options =>
+{
+options.DefaultApiVersion = new ApiVersion(1, 0);
+options.AssumeDefaultVersionWhenUnspecified = true;
+options.ReportApiVersions = true;
+options.ApiVersionReader = new UrlSegmentApiVersionReader();
+})
+.AddApiExplorer(options =>
+{
+options.GroupNameFormat = "'v'VVV";
+options.SubstituteApiVersionInUrl = true;
+});
+
 builder.Services.AddOpenApi();
 builder.Services.AddDbContext<TmsDbContext>(options =>
 options.UseNpgsql(builder.Configuration.GetConnectionString("TmsDatabase")));
@@ -43,6 +66,11 @@ builder.Services.AddScoped<ICourseService, CourseService>();
 
 builder.Services.AddScoped<IEnrollmentServices, EnrollmentService>();
 
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
+});
+
 
 var app = builder.Build();
 
@@ -50,7 +78,16 @@ if (app.Environment.IsDevelopment())
 {
     // Development tools only
     app.MapOpenApi();
-    app.MapScalarApiReference();
+    app.MapScalarApiReference(options =>
+{
+options.WithTitle("TMS API Reference")
+.WithTheme(ScalarTheme.DeepSpace)
+.WithDefaultHttpClient(ScalarTarget.CSharp,
+ScalarClient.HttpClient)
+// Tell Scalar to pull both documents into its sidebar dropdownoptions
+.AddDocument("v1", "API Version 1.0")
+.AddDocument("v2", "API Version 2.0");
+});
 }
 else
 {
@@ -67,6 +104,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseMiddleware<V1DeprecationMiddleware>();
 app.MapControllers();
 
 // Seed test data at startup
