@@ -1,9 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using TmsApi.Data;
-using TmsApi.Dtos;
-using TmsApi.Entities;
+using TmsApi.Infrastructure.Persistence;
+using TmsApi.Application.Dtos;
+using TmsApi.Domain.Entities;
+using Microsoft.Extensions.Logging;
+using TmsApi.Application.Interfeces;
 
-namespace TmsApi.Services;
+namespace TmsApi.Infrastructure.Services;
 
 public class CourseService(
     TmsDbContext context,

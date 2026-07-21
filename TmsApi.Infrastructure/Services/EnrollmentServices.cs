@@ -1,9 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using TmsApi.Data;
-using TmsApi.Dtos;
-using TmsApi.Entities;
+using TmsApi.Infrastructure.Persistence;
+using TmsApi.Application.Dtos;
+using Microsoft.Extensions.Logging;
+using TmsApi.Application.Interfeces;
+using TmsApi.Domain.Entities;
+namespace TmsApi.Infrastructure.Services;
 
-namespace TmsApi.Services;
 
 public class EnrollmentService(
     TmsDbContext context,

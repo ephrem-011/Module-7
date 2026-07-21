@@ -78,7 +78,55 @@
     {
       "code": "NU1903",
       "level": "Warning",
+      "message": "Package 'System.Security.Cryptography.Xml' 8.0.2 has a known high severity vulnerability, https://github.com/advisories/GHSA-23rf-6693-g89p",
+      "projectPath": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Domain\\TmsApi.Domain.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Domain\\TmsApi.Domain.csproj",
+      "libraryId": "System.Security.Cryptography.Xml",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
       "message": "Package 'System.Security.Cryptography.Xml' 8.0.2 has a known high severity vulnerability, https://github.com/advisories/GHSA-37gx-xxp4-5rgx",
+      "projectPath": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Domain\\TmsApi.Domain.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Domain\\TmsApi.Domain.csproj",
+      "libraryId": "System.Security.Cryptography.Xml",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "Package 'System.Security.Cryptography.Xml' 8.0.2 has a known high severity vulnerability, https://github.com/advisories/GHSA-8q5v-6pqq-x66h",
+      "projectPath": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Domain\\TmsApi.Domain.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Domain\\TmsApi.Domain.csproj",
+      "libraryId": "System.Security.Cryptography.Xml",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "Package 'System.Security.Cryptography.Xml' 8.0.2 has a known high severity vulnerability, https://github.com/advisories/GHSA-cvvh-rhrc-wg4q",
+      "projectPath": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Domain\\TmsApi.Domain.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Domain\\TmsApi.Domain.csproj",
+      "libraryId": "System.Security.Cryptography.Xml",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "Package 'System.Security.Cryptography.Xml' 8.0.2 has a known high severity vulnerability, https://github.com/advisories/GHSA-g8r8-53c2-pm3f",
       "projectPath": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Domain\\TmsApi.Domain.csproj",
       "warningLevel": 1,
       "filePath": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Domain\\TmsApi.Domain.csproj",

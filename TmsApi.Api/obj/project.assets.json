@@ -2814,11 +2814,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\module-7\\tmsapi.api\\TmsApi.Api.csproj",
+      "projectUniqueName": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Api\\TmsApi.Api.csproj",
       "projectName": "TmsApi.Api",
-      "projectPath": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\module-7\\tmsapi.api\\TmsApi.Api.csproj",
+      "projectPath": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Api\\TmsApi.Api.csproj",
       "packagesPath": "C:\\Users\\CSUG\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\module-7\\tmsapi.api\\obj\\",
+      "outputPath": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\CSUG\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -2834,8 +2834,8 @@
           "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\CSUG\\Documents\\Ephrem-2\\module-7\\TmsApi.Application\\TmsApi.Application.csproj": {
-              "projectPath": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\module-7\\TmsApi.Application\\TmsApi.Application.csproj"
+            "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Application\\TmsApi.Application.csproj": {
+              "projectPath": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Application\\TmsApi.Application.csproj"
             },
             "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Infrastructure\\TmsApi.Infrastructure.csproj": {
               "projectPath": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Infrastructure\\TmsApi.Infrastructure.csproj"
