@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using TmsApi.Infrastructure.Persistence;
 using TmsApi.Application.Dtos;
 using Microsoft.Extensions.Logging;
-using TmsApi.Application.Interfeces;
+using TmsApi.Application.Interfaces;
 using TmsApi.Domain.Entities;
 namespace TmsApi.Infrastructure.Services;
 
@@ -52,6 +52,11 @@ public class EnrollmentService(
         return (await GetByIdAsync(courseId, enrollment.Id, ct))!;
     }
 
+    public async Task<IEnumerable<Enrollment>> GetByStudentIdAsync (int studentId, CancellationToken ct)
+    {
+        return await context.Enrollments.AsNoTracking().Where(e => e.StudentId == studentId).ToListAsync();
+        
+    }
     public async Task<IReadOnlyList<EnrollmentResponseDto>> GetByCourseAsync(
     int courseId,
     CancellationToken ct)

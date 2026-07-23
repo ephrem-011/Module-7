@@ -1,6 +1,6 @@
 using TmsApi.Application.Dtos;
 
-namespace TmsApi.Application.Interfeces;
+namespace TmsApi.Application.Interfaces;
 
 public interface ICourseService
 {

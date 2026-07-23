@@ -8,12 +8,20 @@ using Microsoft.EntityFrameworkCore;
 using TmsApi.Infrastructure.Persistence;
 using TmsApi.Domain.Entities;
 using TmsApi.Infrastructure.Services;
-using TmsApi.Application.Interfeces;
+using TmsApi.Application.Interfaces;
 using TmsApi.Application.Filters;
 using Microsoft.AspNetCore.Identity;
 using Asp.Versioning;
 using TmsApi.Api.Middlewares;
 using TmsApi.Infrastructure.SeedData;
+using TmsApi.Application.Behaviors;
+using TmsApi.Api.ExceptionHandlers;
+using TmsApi.Application.Enrollments.Commands;
+using MediatR;
+using FluentValidation;
+
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers(options =>
@@ -62,6 +70,15 @@ builder.Host.UseDefaultServiceProvider(options =>
     options.ValidateScopes = true;
     options.ValidateOnBuild = true;
 });
+
+builder.Services.AddValidatorsFromAssembly(typeof(EnrollStudentValidator).Assembly);
+// LoggingBehavior FIRST—it must wrap ValidationBehavior
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>),typeof(LoggingBehavior<,>));
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>),typeof(ValidationBehavior<,>));
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+
+builder.Services.AddProblemDetails();
+
 builder.Services.AddScoped<ICourseService, CourseService>();
 
 builder.Services.AddScoped<IEnrollmentServices, EnrollmentService>();
