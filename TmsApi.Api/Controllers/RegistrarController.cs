@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using TmsApi.Infrastructure.Persistence;
 using TmsApi.Infrastructure.Services;
-using TmsApi.Application.Interfeces;
+using TmsApi.Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
 namespace TmsApi.Api.Controllers;
 [ApiController]

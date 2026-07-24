@@ -20,9 +20,6 @@ using TmsApi.Application.Enrollments.Commands;
 using MediatR;
 using FluentValidation;
 
-
-
-
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers(options =>
 {
@@ -124,139 +121,139 @@ app.UseAuthorization();
 app.UseMiddleware<V1DeprecationMiddleware>();
 app.MapControllers();
 
-// Seed test data at startup
-// using (var scope = app.Services.CreateScope())
-// {
-//     var context = scope.ServiceProvider.GetRequiredService<TmsDbContext>();
+//Seed test data at startup
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<TmsDbContext>();
 
-//     // Applies any pending migrations; keeps migration history intact
-//     context.Database.Migrate();
+    // Applies any pending migrations; keeps migration history intact
+    context.Database.Migrate();
 
-//     if (!context.Students.Any())
-//     {
-//             var students = new List<Student>
-//     {
-//         new() { RegistrationNumber = "TMS-2026-0001", Name = "Alice Smith", GPA = 3.8m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0002", Name = "Bob Jones", GPA = 2.9m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0003", Name = "Charlie Brown", GPA = 3.4m, IsActive = false },
-//         new() { RegistrationNumber = "TMS-2026-0004", Name = "Diana Prince", GPA = 3.9m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0005", Name = "Evan Wright", GPA = 2.5m, IsActive = true },
+    if (!context.Students.Any())
+    {
+            var students = new List<Student>
+    {
+        new() { RegistrationNumber = "TMS-2026-0001", Name = "Alice Smith", GPA = 3.8m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0002", Name = "Bob Jones", GPA = 2.9m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0003", Name = "Charlie Brown", GPA = 3.4m, IsActive = false },
+        new() { RegistrationNumber = "TMS-2026-0004", Name = "Diana Prince", GPA = 3.9m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0005", Name = "Evan Wright", GPA = 2.5m, IsActive = true },
 
-//         new() { RegistrationNumber = "TMS-2026-0006", Name = "Alex Johnson", GPA = 3.1m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0007", Name = "Sophia Lee", GPA = 3.6m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0008", Name = "Daniel Kim", GPA = 2.7m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0009", Name = "Emma Davis", GPA = 3.2m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0010", Name = "Michael Scott", GPA = 3.0m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0006", Name = "Alex Johnson", GPA = 3.1m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0007", Name = "Sophia Lee", GPA = 3.6m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0008", Name = "Daniel Kim", GPA = 2.7m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0009", Name = "Emma Davis", GPA = 3.2m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0010", Name = "Michael Scott", GPA = 3.0m, IsActive = true },
 
-//         new() { RegistrationNumber = "TMS-2026-0011", Name = "Jim Halpert", GPA = 3.5m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0012", Name = "Pam Beesly", GPA = 3.7m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0013", Name = "Dwight Schrute", GPA = 2.8m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0014", Name = "Ryan Howard", GPA = 2.6m, IsActive = false },
-//         new() { RegistrationNumber = "TMS-2026-0015", Name = "Andy Bernard", GPA = 3.3m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0011", Name = "Jim Halpert", GPA = 3.5m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0012", Name = "Pam Beesly", GPA = 3.7m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0013", Name = "Dwight Schrute", GPA = 2.8m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0014", Name = "Ryan Howard", GPA = 2.6m, IsActive = false },
+        new() { RegistrationNumber = "TMS-2026-0015", Name = "Andy Bernard", GPA = 3.3m, IsActive = true },
 
-//         new() { RegistrationNumber = "TMS-2026-0016", Name = "Stanley Hudson", GPA = 2.9m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0017", Name = "Kevin Malone", GPA = 2.4m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0018", Name = "Oscar Martinez", GPA = 3.8m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0019", Name = "Angela Martin", GPA = 3.9m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0020", Name = "Kelly Kapoor", GPA = 3.1m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0016", Name = "Stanley Hudson", GPA = 2.9m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0017", Name = "Kevin Malone", GPA = 2.4m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0018", Name = "Oscar Martinez", GPA = 3.8m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0019", Name = "Angela Martin", GPA = 3.9m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0020", Name = "Kelly Kapoor", GPA = 3.1m, IsActive = true },
 
-//         new() { RegistrationNumber = "TMS-2026-0021", Name = "Ryan Reynolds", GPA = 3.6m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0022", Name = "Chris Evans", GPA = 3.7m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0023", Name = "Tom Holland", GPA = 3.5m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0024", Name = "Zendaya Coleman", GPA = 3.9m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0025", Name = "Robert Downey", GPA = 3.8m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0021", Name = "Ryan Reynolds", GPA = 3.6m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0022", Name = "Chris Evans", GPA = 3.7m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0023", Name = "Tom Holland", GPA = 3.5m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0024", Name = "Zendaya Coleman", GPA = 3.9m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0025", Name = "Robert Downey", GPA = 3.8m, IsActive = true },
 
-//         new() { RegistrationNumber = "TMS-2026-0026", Name = "Tony Stark", GPA = 4.0m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0027", Name = "Steve Rogers", GPA = 3.9m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0028", Name = "Bruce Banner", GPA = 3.7m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0029", Name = "Thor Odinson", GPA = 3.6m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0030", Name = "Natasha Romanoff", GPA = 3.8m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0026", Name = "Tony Stark", GPA = 4.0m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0027", Name = "Steve Rogers", GPA = 3.9m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0028", Name = "Bruce Banner", GPA = 3.7m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0029", Name = "Thor Odinson", GPA = 3.6m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0030", Name = "Natasha Romanoff", GPA = 3.8m, IsActive = true },
 
-//         new() { RegistrationNumber = "TMS-2026-0031", Name = "Peter Parker", GPA = 3.5m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0032", Name = "Miles Morales", GPA = 3.6m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0033", Name = "Clark Kent", GPA = 3.9m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0034", Name = "Bruce Wayne", GPA = 3.4m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0035", Name = "Barry Allen", GPA = 3.3m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0031", Name = "Peter Parker", GPA = 3.5m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0032", Name = "Miles Morales", GPA = 3.6m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0033", Name = "Clark Kent", GPA = 3.9m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0034", Name = "Bruce Wayne", GPA = 3.4m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0035", Name = "Barry Allen", GPA = 3.3m, IsActive = true },
 
-//         new() { RegistrationNumber = "TMS-2026-0036", Name = "Arthur Curry", GPA = 3.2m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0037", Name = "Diana Wayne", GPA = 3.8m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0038", Name = "Hal Jordan", GPA = 3.1m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0039", Name = "Oliver Queen", GPA = 3.0m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0040", Name = "Kara Zor-El", GPA = 3.9m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0036", Name = "Arthur Curry", GPA = 3.2m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0037", Name = "Diana Wayne", GPA = 3.8m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0038", Name = "Hal Jordan", GPA = 3.1m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0039", Name = "Oliver Queen", GPA = 3.0m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0040", Name = "Kara Zor-El", GPA = 3.9m, IsActive = true },
 
-//         new() { RegistrationNumber = "TMS-2026-0041", Name = "John Snow", GPA = 3.2m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0042", Name = "Arya Stark", GPA = 3.6m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0043", Name = "Tyrion Lannister", GPA = 3.7m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0044", Name = "Daenerys Targaryen", GPA = 3.9m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0045", Name = "Jonas Kahnwald", GPA = 3.4m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0041", Name = "John Snow", GPA = 3.2m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0042", Name = "Arya Stark", GPA = 3.6m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0043", Name = "Tyrion Lannister", GPA = 3.7m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0044", Name = "Daenerys Targaryen", GPA = 3.9m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0045", Name = "Jonas Kahnwald", GPA = 3.4m, IsActive = true },
 
-//         new() { RegistrationNumber = "TMS-2026-0046", Name = "Walter White", GPA = 3.8m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0047", Name = "Jesse Pinkman", GPA = 3.2m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0048", Name = "Saul Goodman", GPA = 3.5m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0049", Name = "Dexter Morgan", GPA = 3.7m, IsActive = true },
-//         new() { RegistrationNumber = "TMS-2026-0050", Name = "Sherlock Holmes", GPA = 4.0m, IsActive = true }
-//     };
+        new() { RegistrationNumber = "TMS-2026-0046", Name = "Walter White", GPA = 3.8m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0047", Name = "Jesse Pinkman", GPA = 3.2m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0048", Name = "Saul Goodman", GPA = 3.5m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0049", Name = "Dexter Morgan", GPA = 3.7m, IsActive = true },
+        new() { RegistrationNumber = "TMS-2026-0050", Name = "Sherlock Holmes", GPA = 4.0m, IsActive = true }
+    };
 
-//     context.Students.AddRange(students);
-//     context.SaveChanges();
+    context.Students.AddRange(students);
+    context.SaveChanges();
 
-//         var courses = new List<Course>
-//         {
-//             new()
-//             {
-//                 Code = "CS-101",
-//                 Title = "Introduction to Computer Science",
-//                 MaxCapacity = 30
-//             },
-//             new()
-//             {
-//                 Code = "CS-201",
-//                 Title = "Data Structures and Algorithms",
-//                 MaxCapacity = 25
-//             },
-//             new()
-//             {
-//                 Code = "MAT-101",
-//                 Title = "Calculus I",
-//                 MaxCapacity = 40
-//             }
-//         };
+        var courses = new List<Course>
+        {
+            new()
+            {
+                Code = "CS-101",
+                Title = "Introduction to Computer Science",
+                MaxCapacity = 30
+            },
+            new()
+            {
+                Code = "CS-201",
+                Title = "Data Structures and Algorithms",
+                MaxCapacity = 25
+            },
+            new()
+            {
+                Code = "MAT-101",
+                Title = "Calculus I",
+                MaxCapacity = 40
+            }
+        };
 
-//         context.Courses.AddRange(courses);
-//         context.SaveChanges();
+        context.Courses.AddRange(courses);
+        context.SaveChanges();
 
-//         var enrollments = new List<Enrollment>
-//         {
-//             new()
-//             {
-//                 StudentId = students[0].Id,
-//                 CourseId = courses[0].Id,
-//                 Grade = 4.0m
-//             },
-//             new()
-//             {
-//                 StudentId = students[0].Id,
-//                 CourseId = courses[1].Id,
-//                 Grade = 3.6m
-//             },
-//             new()
-//             {
-//                 StudentId = students[1].Id,
-//                 CourseId = courses[0].Id,
-//                 Grade = 2.8m
-//             },
-//             new()
-//             {
-//                 StudentId = students[3].Id,
-//                 CourseId = courses[1].Id,
-//                 Grade = 3.9m
-//             }
-//         };
+        var enrollments = new List<Enrollment>
+        {
+            new()
+            {
+                StudentId = students[0].Id,
+                CourseId = courses[0].Id,
+                Grade = 4.0m
+            },
+            new()
+            {
+                StudentId = students[0].Id,
+                CourseId = courses[1].Id,
+                Grade = 3.6m
+            },
+            new()
+            {
+                StudentId = students[1].Id,
+                CourseId = courses[0].Id,
+                Grade = 2.8m
+            },
+            new()
+            {
+                StudentId = students[3].Id,
+                CourseId = courses[1].Id,
+                Grade = 3.9m
+            }
+        };
 
-//         context.Enrollments.AddRange(enrollments);
-//         context.SaveChanges();
-//     }
-// }
+        context.Enrollments.AddRange(enrollments);
+        context.SaveChanges();
+    }
+}
 
 //Seed courses table
 if (app.Environment.IsDevelopment())

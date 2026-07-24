@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using TmsApi.Infrastructure.Services;
-using TmsApi.Application.Interfeces;
+using TmsApi.Application.Interfaces;
 using TmsApi.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 namespace TmsApi.Api.Controllers;
