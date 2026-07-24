@@ -2941,19 +2941,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\CSUG\\.nuget\\packages\\": {}
+    "C:\\Users\\Ephrem\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Api\\TmsApi.Api.csproj",
+      "projectUniqueName": "E:\\m7\\module-7\\TmsApi.Api\\TmsApi.Api.csproj",
       "projectName": "TmsApi.Api",
-      "projectPath": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Api\\TmsApi.Api.csproj",
-      "packagesPath": "C:\\Users\\CSUG\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Api\\obj\\",
+      "projectPath": "E:\\m7\\module-7\\TmsApi.Api\\TmsApi.Api.csproj",
+      "packagesPath": "C:\\Users\\Ephrem\\.nuget\\packages\\",
+      "outputPath": "E:\\m7\\module-7\\TmsApi.Api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\CSUG\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Ephrem\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
@@ -2966,11 +2966,11 @@
           "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Application\\TmsApi.Application.csproj": {
-              "projectPath": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Application\\TmsApi.Application.csproj"
+            "E:\\m7\\module-7\\TmsApi.Application\\TmsApi.Application.csproj": {
+              "projectPath": "E:\\m7\\module-7\\TmsApi.Application\\TmsApi.Application.csproj"
             },
-            "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Infrastructure\\TmsApi.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Infrastructure\\TmsApi.Infrastructure.csproj"
+            "E:\\m7\\module-7\\TmsApi.Infrastructure\\TmsApi.Infrastructure.csproj": {
+              "projectPath": "E:\\m7\\module-7\\TmsApi.Infrastructure\\TmsApi.Infrastructure.csproj"
             }
           }
         }
@@ -3050,7 +3050,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.302/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.AspNetCore": "(,10.0.32767]",
           "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

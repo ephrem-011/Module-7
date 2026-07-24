@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Domain\\TmsApi.Domain.csproj": {}
+    "E:\\m7\\module-7\\TmsApi.Domain\\TmsApi.Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Domain\\TmsApi.Domain.csproj": {
+    "E:\\m7\\module-7\\TmsApi.Domain\\TmsApi.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Domain\\TmsApi.Domain.csproj",
+        "projectUniqueName": "E:\\m7\\module-7\\TmsApi.Domain\\TmsApi.Domain.csproj",
         "projectName": "TmsApi.Domain",
-        "projectPath": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Domain\\TmsApi.Domain.csproj",
-        "packagesPath": "C:\\Users\\CSUG\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Domain\\obj\\",
+        "projectPath": "E:\\m7\\module-7\\TmsApi.Domain\\TmsApi.Domain.csproj",
+        "packagesPath": "C:\\Users\\Ephrem\\.nuget\\packages\\",
+        "outputPath": "E:\\m7\\module-7\\TmsApi.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\CSUG\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Ephrem\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
@@ -67,7 +67,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.302/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",

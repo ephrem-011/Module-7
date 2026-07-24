@@ -4860,19 +4860,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\CSUG\\.nuget\\packages\\": {}
+    "C:\\Users\\Ephrem\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Infrastructure\\TmsApi.Infrastructure.csproj",
+      "projectUniqueName": "E:\\m7\\module-7\\TmsApi.Infrastructure\\TmsApi.Infrastructure.csproj",
       "projectName": "TmsApi.Infrastructure",
-      "projectPath": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Infrastructure\\TmsApi.Infrastructure.csproj",
-      "packagesPath": "C:\\Users\\CSUG\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Infrastructure\\obj\\",
+      "projectPath": "E:\\m7\\module-7\\TmsApi.Infrastructure\\TmsApi.Infrastructure.csproj",
+      "packagesPath": "C:\\Users\\Ephrem\\.nuget\\packages\\",
+      "outputPath": "E:\\m7\\module-7\\TmsApi.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\CSUG\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Ephrem\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
@@ -4885,11 +4885,11 @@
           "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Application\\TmsApi.Application.csproj": {
-              "projectPath": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Application\\TmsApi.Application.csproj"
+            "E:\\m7\\module-7\\TmsApi.Application\\TmsApi.Application.csproj": {
+              "projectPath": "E:\\m7\\module-7\\TmsApi.Application\\TmsApi.Application.csproj"
             },
-            "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Domain\\TmsApi.Domain.csproj": {
-              "projectPath": "C:\\Users\\CSUG\\Documents\\Ephrem-2\\Module-7\\TmsApi.Domain\\TmsApi.Domain.csproj"
+            "E:\\m7\\module-7\\TmsApi.Domain\\TmsApi.Domain.csproj": {
+              "projectPath": "E:\\m7\\module-7\\TmsApi.Domain\\TmsApi.Domain.csproj"
             }
           }
         }
@@ -4946,7 +4946,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.302/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -5270,6 +5270,16 @@
       "level": "Warning",
       "warningLevel": 1,
       "message": "Package 'System.Security.Cryptography.Xml' 8.0.2 has a known high severity vulnerability, https://github.com/advisories/GHSA-g8r8-53c2-pm3f",
+      "libraryId": "System.Security.Cryptography.Xml",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'System.Security.Cryptography.Xml' 8.0.2 has a known high severity vulnerability, https://github.com/advisories/GHSA-mmjf-rqrv-855v",
       "libraryId": "System.Security.Cryptography.Xml",
       "targetGraphs": [
         "net10.0"
