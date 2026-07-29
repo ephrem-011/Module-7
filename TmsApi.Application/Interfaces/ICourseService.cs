@@ -1,4 +1,5 @@
 using TmsApi.Application.Dtos;
+using TmsApi.Application.Courses.Commands;
 
 
 namespace TmsApi.Application.Interfaces;
@@ -21,5 +22,7 @@ public interface ICourseService
     Task<PagedResponse<CourseResponseDto>> GetCoursesAsync(
         PagedRequest request,
         CancellationToken ct);
-    
+    Task UpdateAsync(
+    UpdateCourseCommand command,
+    CancellationToken ct);
 }

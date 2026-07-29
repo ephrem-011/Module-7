@@ -4,6 +4,7 @@ using TmsApi.Application.Dtos;
 using TmsApi.Domain.Entities;
 using Microsoft.Extensions.Logging;
 using TmsApi.Application.Interfaces;
+using TmsApi.Application.Courses.Commands;
 
 namespace TmsApi.Infrastructure.Services;
 
@@ -14,52 +15,52 @@ public class CourseService(
     public async Task<PagedResponse<CourseResponseDto>> GetCoursesAsync(
     PagedRequest request,
     CancellationToken ct)
-{
-    IQueryable<Course> query = context.Courses.AsNoTracking();
-
-    if (!string.IsNullOrWhiteSpace(request.Search))
     {
-        query = query.Where(c =>
-            EF.Functions.ILike(c.Title, $"%{request.Search}%") ||
-            EF.Functions.ILike(c.Code, $"%{request.Search}%"));
+        IQueryable<Course> query = context.Courses.AsNoTracking();
+
+        if (!string.IsNullOrWhiteSpace(request.Search))
+        {
+            query = query.Where(c =>
+                EF.Functions.ILike(c.Title, $"%{request.Search}%") ||
+                EF.Functions.ILike(c.Code, $"%{request.Search}%"));
+        }
+
+        var totalCount = await query.CountAsync(ct);
+
+        query = request.OrderBy switch
+        {
+            "Code" => request.Descending
+                ? query.OrderByDescending(c => c.Code)
+                : query.OrderBy(c => c.Code),
+
+            "MaxCapacity" => request.Descending
+                ? query.OrderByDescending(c => c.MaxCapacity)
+                : query.OrderBy(c => c.MaxCapacity),
+
+            _ => request.Descending
+                ? query.OrderByDescending(c => c.Title)
+                : query.OrderBy(c => c.Title)
+        };
+
+        var items = await query
+            .Skip((request.Page - 1) * request.PageSize)
+            .Take(request.PageSize)
+            .Select(c => new CourseResponseDto(
+                c.Id,
+                c.Code,
+                c.Title,
+                c.MaxCapacity,
+                c.Enrollments.Count))
+            .ToListAsync(ct);
+
+        return new PagedResponse<CourseResponseDto>
+        {
+            Items = items,
+            TotalCount = totalCount,
+            Page = request.Page,
+            PageSize = request.PageSize
+        };
     }
-
-    var totalCount = await query.CountAsync(ct);
-
-    query = request.OrderBy switch
-    {
-        "Code" => request.Descending
-            ? query.OrderByDescending(c => c.Code)
-            : query.OrderBy(c => c.Code),
-
-        "MaxCapacity" => request.Descending
-            ? query.OrderByDescending(c => c.MaxCapacity)
-            : query.OrderBy(c => c.MaxCapacity),
-
-        _ => request.Descending
-            ? query.OrderByDescending(c => c.Title)
-            : query.OrderBy(c => c.Title)
-    };
-
-    var items = await query
-        .Skip((request.Page - 1) * request.PageSize)
-        .Take(request.PageSize)
-        .Select(c => new CourseResponseDto(
-            c.Id,
-            c.Code,
-            c.Title,
-            c.MaxCapacity,
-            c.Enrollments.Count))
-        .ToListAsync(ct);
-
-    return new PagedResponse<CourseResponseDto>
-    {
-        Items = items,
-        TotalCount = totalCount,
-        Page = request.Page,
-        PageSize = request.PageSize
-    };
-}
     public Task<CourseResponseDto?> GetByIdAsync(
         int id,
         CancellationToken ct)
@@ -76,6 +77,59 @@ public class CourseService(
             .FirstOrDefaultAsync(ct);
     }
 
+    public async Task UpdateAsync(
+    UpdateCourseCommand command,
+    CancellationToken ct)
+    {
+        var course = await context.Courses
+            .FirstOrDefaultAsync(c => c.Id == command.Id, ct);
+
+        if (course is null)
+        {
+            throw new KeyNotFoundException($"Course {command.Id} not found.");
+        }
+
+        course.Code = command.Code;
+        course.Title = command.Title;
+        course.MaxCapacity = command.MaxCapacity;
+
+        await context.SaveChangesAsync(ct);
+
+        logger.LogInformation(
+            "Updated course {CourseId}",
+            course.Id);
+    }
+
+    public async Task<CourseResponseDto?> GetByCodeAsync(
+    string code,
+    CancellationToken ct)
+    {
+        return await context.Courses
+            .AsNoTracking()
+            .Where(c => c.Code == code)
+            .Select(c => new CourseResponseDto(
+                c.Id,
+                c.Code,
+                c.Title,
+                c.MaxCapacity,
+                c.Enrollments.Count))
+            .FirstOrDefaultAsync(ct);
+    }
+
+    public async Task<List<CourseResponseDto>> GetAllAsync(
+        CancellationToken ct)
+    {
+        return await context.Courses
+            .AsNoTracking()
+            .OrderBy(c => c.Title)
+            .Select(c => new CourseResponseDto(
+                c.Id,
+                c.Code,
+                c.Title,
+                c.MaxCapacity,
+                c.Enrollments.Count))
+            .ToListAsync(ct);
+    }
     public async Task<CourseResponseDto> CreateAsync(
         CreateCourseRequest request,
         CancellationToken ct)
