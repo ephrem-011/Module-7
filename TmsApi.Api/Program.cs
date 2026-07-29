@@ -30,6 +30,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddRateLimiter(options =>
+
 {
 options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext,string>(httpContext =>
 {
@@ -66,6 +67,14 @@ QueueLimit = 0,
 AutoReplenishment = true
 })
 };
+});
+options.AddTokenBucketLimiter("search", opt =>
+{
+    opt.TokenLimit = 10;
+    opt.TokensPerPeriod = 5;
+    opt.ReplenishmentPeriod = TimeSpan.FromSeconds(10);
+    opt.QueueLimit = 2;
+    opt.AutoReplenishment = true;
 });
 options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;options.OnRejected = async (context, ct) =>
 {

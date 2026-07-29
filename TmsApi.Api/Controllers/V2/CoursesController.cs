@@ -2,6 +2,8 @@ using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TmsApi.Infrastructure.Persistence;
+using Microsoft.AspNetCore.RateLimiting;
+using MediatR;
 namespace TmsApi.Api.Controllers.V2;
 [ApiController]
 [Route("api/v{version:apiVersion}/courses")]
@@ -57,5 +59,4 @@ prev = hasPrevious
 enroll = "/api/v2/enrollments"
 }
 });
-}
-}
+}}
