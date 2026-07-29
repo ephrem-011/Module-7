@@ -52,10 +52,10 @@ public class EnrollmentService(
         return (await GetByIdAsync(courseId, enrollment.Id, ct))!;
     }
 
-    public async Task<IEnumerable<Enrollment>> GetByStudentIdAsync (int studentId, CancellationToken ct)
+    public async Task<IEnumerable<Enrollment>> GetByStudentIdAsync(int studentId, CancellationToken ct)
     {
         return await context.Enrollments.AsNoTracking().Where(e => e.StudentId == studentId).ToListAsync();
-        
+
     }
     public async Task<IReadOnlyList<EnrollmentResponseDto>> GetByCourseAsync(
     int courseId,
@@ -74,15 +74,25 @@ public class EnrollmentService(
 
     //This is to check if a student is trying to enroll on a course more than once
     public Task<bool> ExistsAsync(
-    int courseId,
     int studentId,
+    string courseCode,
     CancellationToken ct)
     {
+        var course = context.Courses.Where(c => c.Code == courseCode);
         return context.Enrollments
             .AsNoTracking()
             .AnyAsync(e =>
-                e.CourseId == courseId &&
+                e.Course == course &&
                 e.StudentId == studentId,
                 ct);
+    }
+
+    public async Task AddAsync(
+    Enrollment enrollment,
+    CancellationToken ct)
+    {
+        context.Enrollments.Add(enrollment);
+
+        await context.SaveChangesAsync(ct);
     }
 }

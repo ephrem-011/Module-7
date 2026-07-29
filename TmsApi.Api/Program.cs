@@ -9,6 +9,7 @@ using TmsApi.Infrastructure.Persistence;
 using TmsApi.Domain.Entities;
 using TmsApi.Infrastructure.Services;
 using TmsApi.Application.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 using TmsApi.Application.Filters;
 using Microsoft.AspNetCore.Identity;
 using Asp.Versioning;
@@ -17,6 +18,7 @@ using TmsApi.Infrastructure.SeedData;
 using TmsApi.Application.Behaviors;
 using TmsApi.Api.ExceptionHandlers;
 using TmsApi.Application.Enrollments.Commands;
+using Microsoft.Extensions.Caching.Hybrid;
 using MediatR;
 using FluentValidation;
 
@@ -25,7 +27,16 @@ builder.Services.AddControllers(options =>
 {
     options.Filters.Add<AuditLogFilter>();
 });
+builder.Services.AddHybridCache(options =>
+{
+options.DefaultEntryOptions = new HybridCacheEntryOptions
+{
+Expiration = TimeSpan.FromMinutes(10),
+LocalCacheExpiration = TimeSpan.FromMinutes(2)
+};
+});
 
+builder.Services.AddScoped<ICachedCourseService, CachedCourseService>();
 builder.Services.AddOpenApi("v1", options =>
 {
 options.ShouldInclude = description =>

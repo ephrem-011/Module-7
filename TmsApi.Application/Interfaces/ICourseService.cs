@@ -1,5 +1,6 @@
 using TmsApi.Application.Dtos;
 
+
 namespace TmsApi.Application.Interfaces;
 
 public interface ICourseService
@@ -14,7 +15,11 @@ public interface ICourseService
         string code,
         CancellationToken ct);
 
+    Task<CourseResponseDto?> GetByCodeAsync(string code, CancellationToken ct);
+    Task<List<CourseResponseDto>> GetAllAsync(CancellationToken ct);
+
     Task<PagedResponse<CourseResponseDto>> GetCoursesAsync(
         PagedRequest request,
         CancellationToken ct);
+    
 }
