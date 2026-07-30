@@ -137,6 +137,7 @@ options.ApiVersionReader = new UrlSegmentApiVersionReader();
 options.GroupNameFormat = "'v'VVV";
 options.SubstituteApiVersionInUrl = true;
 });
+builder.Services.AddHealthChecks();
 builder.Services.AddRateLimiter(options =>
 {
 // ... GlobalLimiter from Step 2 stays as-is ...
