@@ -78,11 +78,10 @@ public class EnrollmentService(
     string courseCode,
     CancellationToken ct)
     {
-        var course = context.Courses.Where(c => c.Code == courseCode);
         return context.Enrollments
             .AsNoTracking()
             .AnyAsync(e =>
-                e.Course == course &&
+                e.Course.Code == courseCode &&
                 e.StudentId == studentId,
                 ct);
     }
