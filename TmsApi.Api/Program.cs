@@ -14,6 +14,7 @@ using TmsApi.Application.Filters;
 using Microsoft.AspNetCore.Identity;
 using Asp.Versioning;
 using TmsApi.Api.Middlewares;
+using TmsApi.Api.Hubs;
 using TmsApi.Infrastructure.SeedData;
 using TmsApi.Application.Behaviors;
 using TmsApi.Api.ExceptionHandlers;
@@ -95,6 +96,7 @@ builder.Services.AddControllers(options =>
 {
     options.Filters.Add<AuditLogFilter>();
 });
+builder.Services.AddSignalR();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngular", policy =>
@@ -102,7 +104,8 @@ builder.Services.AddCors(options =>
         policy
             .WithOrigins("http://localhost:4200")
             .AllowAnyHeader()
-            .AllowAnyMethod();
+            .AllowAnyMethod()
+            .AllowCredentials();
     });
 });
 builder.Services.AddHybridCache(options =>
@@ -218,6 +221,7 @@ app.UseRouting();
 app.UseRateLimiter();
 app.MapHealthChecks("/health/live").DisableRateLimiting();
 app.MapHealthChecks("/health/ready").DisableRateLimiting();
+app.MapHub<EnrollmentHub>("/hubs/enrollment");
 app.UseCors("AllowAngular");
 app.UseAuthentication();
 app.UseAuthorization();
