@@ -26,6 +26,8 @@ using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using TmsApi.Api.RateLimiting;
+using TmsApi.Infrastructure.Transcripts;
+using TmsApi.Application.Transcripts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -96,6 +98,8 @@ builder.Services.AddControllers(options =>
 {
     options.Filters.Add<AuditLogFilter>();
 });
+builder.Services.AddSingleton<
+    ITranscriptStatusStore, InMemoryTranscriptStatusStore>();
 builder.Services.AddSignalR();
 builder.Services.AddCors(options =>
 {
