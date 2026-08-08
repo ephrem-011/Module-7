@@ -27,7 +27,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using TmsApi.Api.RateLimiting;
 using TmsApi.Infrastructure.Transcripts;
+using System.Threading.Channels;
 using TmsApi.Application.Transcripts;
+using TmsApi.Infrastructure.Workers;
+using TmsApi.Application.Notifications;
+using TmsApi.Api.Notifications;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -98,9 +103,10 @@ builder.Services.AddControllers(options =>
 {
     options.Filters.Add<AuditLogFilter>();
 });
-builder.Services.AddSingleton<
-    ITranscriptStatusStore, InMemoryTranscriptStatusStore>();
 builder.Services.AddSignalR();
+builder.Services.AddSingleton<
+    ITranscriptNotificationService,
+    SignalRTranscriptNotificationService>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngular", policy =>
@@ -120,8 +126,17 @@ Expiration = TimeSpan.FromMinutes(10),
 LocalCacheExpiration = TimeSpan.FromMinutes(2)
 };
 });
-
+builder.Services.AddSingleton(
+    Channel.CreateBounded<TranscriptRequest>(
+        new BoundedChannelOptions(100)
+        {
+            FullMode = BoundedChannelFullMode.Wait
+        }));
+builder.Services.AddSingleton<
+    ITranscriptStatusStore,
+    InMemoryTranscriptStatusStore>();
 builder.Services.AddScoped<ICachedCourseService, CachedCourseService>();
+builder.Services.AddHostedService<TranscriptWorker>();
 builder.Services.AddOpenApi("v1", options =>
 {
 options.ShouldInclude = description =>
@@ -226,6 +241,7 @@ app.UseRateLimiter();
 app.MapHealthChecks("/health/live").DisableRateLimiting();
 app.MapHealthChecks("/health/ready").DisableRateLimiting();
 app.MapHub<EnrollmentHub>("/hubs/enrollment");
+app.MapHub<TmsHub>("/hubs/tms");
 app.UseCors("AllowAngular");
 app.UseAuthentication();
 app.UseAuthorization();
