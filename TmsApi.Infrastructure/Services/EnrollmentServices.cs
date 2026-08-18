@@ -94,4 +94,29 @@ public class EnrollmentService(
 
         await context.SaveChangesAsync(ct);
     }
+
+    public async Task<bool> ApproveAsync(
+    int enrollmentId,
+    CancellationToken ct)
+{
+    var enrollment = await context.Enrollments
+        .FirstOrDefaultAsync(
+            e => e.Id == enrollmentId,
+            ct);
+
+    if (enrollment is null)
+    {
+        return false;
+    }
+
+    enrollment.Status = "Approved";
+
+    await context.SaveChangesAsync(ct);
+
+    logger.LogInformation(
+        "Enrollment {EnrollmentId} approved",
+        enrollmentId);
+
+    return true;
+}
 }

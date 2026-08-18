@@ -24,8 +24,10 @@ public interface IEnrollmentServices
     Task AddAsync(Enrollment enrollment, CancellationToken ct);
 
     Task<IEnumerable<Enrollment>> GetByStudentIdAsync(
-    int studentId,
-    CancellationToken ct
-);
-
+        int studentId,
+        CancellationToken ct
+    );
+    Task<bool> ApproveAsync(
+    int enrollmentId,
+    CancellationToken ct);
 }

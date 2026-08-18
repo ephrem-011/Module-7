@@ -5,11 +5,16 @@ using TmsApi.Application.Enrollments.Commands;
 using TmsApi.Application.Enrollments.Queries;
 using TmsApi.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using TmsApi.Application.Interfaces;
+using Microsoft.AspNetCore.SignalR;
+using TmsApi.Application.Hubs;
+using TmsApi.Application.Interfaces;
+using TmsApi.Api.Hubs;
 
 [ApiController]
 [Route("api/v{version:apiVersion}/enrollments")]
 [ApiVersion("2.0")]
-public class EnrollmentsController(IMediator mediator, TmsDbContext context) : ControllerBase
+public class EnrollmentsController(IMediator mediator, TmsDbContext context, IEnrollmentServices enrollmentService, IHubContext<EnrollmentHub, ITmsHubClient> hubContext) : ControllerBase
 {
     [HttpPost]
     public async Task<IActionResult> Enroll(
@@ -89,5 +94,23 @@ public async Task<IActionResult> GetAll(
             hasPrevious = page > 1
         }
     });
+}
+
+[HttpPost("{id}/approve")]
+public async Task<IActionResult> Approve(
+    int id,
+    CancellationToken ct)
+{
+    var approved = await enrollmentService.ApproveAsync(id, ct);
+
+    if (!approved)
+        return NotFound();
+
+    await hubContext.Clients.All
+        .ReceiveEnrollmentStatusUpdated(
+            id.ToString(),
+            "Approved");
+
+    return NoContent();
 }
 }
