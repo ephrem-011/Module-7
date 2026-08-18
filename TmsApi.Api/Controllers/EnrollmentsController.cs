@@ -3,10 +3,13 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TmsApi.Application.Enrollments.Commands;
 using TmsApi.Application.Enrollments.Queries;
+using TmsApi.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+
 [ApiController]
 [Route("api/v{version:apiVersion}/enrollments")]
 [ApiVersion("2.0")]
-public class EnrollmentsController(IMediator mediator) : ControllerBase
+public class EnrollmentsController(IMediator mediator, TmsDbContext context) : ControllerBase
 {
     [HttpPost]
     public async Task<IActionResult> Enroll(
@@ -41,4 +44,50 @@ public class EnrollmentsController(IMediator mediator) : ControllerBase
         new GetStudentScheduleQuery(studentId), ct);
         return Ok(schedule);
     }
+[HttpGet]
+public async Task<IActionResult> GetAll(
+    [FromQuery] int page = 1,
+    [FromQuery] int pageSize = 20,
+    CancellationToken ct = default)
+{
+    page = Math.Max(1, page);
+    pageSize = Math.Clamp(pageSize, 1, 50);
+
+    var baseQuery = context.Enrollments
+        .AsNoTracking();
+
+    var totalCount = await baseQuery.CountAsync(ct);
+
+    var rows = await baseQuery
+        .OrderByDescending(e => e.EnrolledAt)
+        .Skip((page - 1) * pageSize)
+        .Take(pageSize)
+        .Select(e => new
+        {
+            e.Id,
+            e.StudentId,
+            StudentName = e.Student.Name,
+            e.CourseId,
+            CourseName = e.Course.Title,
+            e.EnrolledAt
+        })
+        .ToListAsync(ct);
+
+    var totalPages = (int)Math.Ceiling(
+        totalCount / (double)pageSize);
+
+    return Ok(new
+    {
+        data = rows,
+        meta = new
+        {
+            totalCount,
+            page,
+            pageSize,
+            totalPages,
+            hasNext = page < totalPages,
+            hasPrevious = page > 1
+        }
+    });
+}
 }
