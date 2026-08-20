@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using TmsApi.Application.Interfaces;
 using Microsoft.AspNetCore.SignalR;
 using TmsApi.Application.Hubs;
-using TmsApi.Application.Interfaces;
 using TmsApi.Api.Hubs;
 
 [ApiController]
