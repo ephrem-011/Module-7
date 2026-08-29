@@ -34,6 +34,7 @@ using TmsApi.Application.Notifications;
 using TmsApi.Api.Notifications;
 using FluentValidation.Validators;
 using Microsoft.AspNetCore.Antiforgery;
+using TmsApi.Infrastructure.Identity;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -228,6 +229,25 @@ builder.Services.AddAntiforgery(options =>
 {
     options.HeaderName = "X-XSRF-TOKEN";
 });
+
+builder.Services
+    .AddIdentityCore<TmsUser>(options =>
+    {
+        // Password policy
+        options.Password.RequiredLength = 12;
+        options.Password.RequireUppercase = true;
+        options.Password.RequireDigit = true;
+        options.Password.RequireNonAlphanumeric = true;
+
+        // Lockout protection
+        options.Lockout.MaxFailedAccessAttempts = 5;
+        options.Lockout.DefaultLockoutTimeSpan =
+            TimeSpan.FromMinutes(15);
+        options.Lockout.AllowedForNewUsers = true;
+    })
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<TmsDbContext>();
+    
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
