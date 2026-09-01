@@ -25,6 +25,7 @@ using MediatR;
 using FluentValidation;
 using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.RateLimiting;
 using TmsApi.Api.RateLimiting;
 using TmsApi.Infrastructure.Transcripts;
@@ -36,6 +37,15 @@ using TmsApi.Api.Notifications;
 using FluentValidation.Validators;
 using Microsoft.AspNetCore.Antiforgery;
 using TmsApi.Infrastructure.Identity;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Text;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.Linq;
+
+
 
 
 var builder = WebApplication.CreateBuilder(args);
